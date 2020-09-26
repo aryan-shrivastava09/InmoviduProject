@@ -1,0 +1,2 @@
+1. ARM folder contains the complete infrastructure as Arm templates, a powershell script to deploy the templates and a rough infrastructure as a design pdf document.
+2. POWERSHELL folder contains the complete infrastructure as a powershell script and a infrastucture as a design pdf document. 

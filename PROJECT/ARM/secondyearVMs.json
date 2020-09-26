@@ -1,0 +1,443 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {},
+    "functions": [],
+    "variables": {},
+    "resources": [
+        {
+            "name": "W-secondyear-ec-vm-01",
+            "type": "Microsoft.Compute/virtualMachines",
+            "apiVersion": "2019-07-01",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', 'mnitsa')]",
+                "[resourceId('Microsoft.Network/networkInterfaces', 'W-secondyear-ec-vm-01-nic-01')]"
+            ],
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "Standard_B2s"
+                },
+                "osProfile": {
+                    "computerName": "W-secondyear-ec-vm-01",
+                    "adminUsername": "TestAdmin",
+                    "adminPassword": "p@$$word1"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "MicrosoftWindowsServer",
+                        "offer": "WindowsServer",
+                        "sku": "2019-Datacenter",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "name": "windowsVM1OSDisk",
+                        "caching": "ReadWrite",
+                        "createOption": "FromImage"
+                    },
+                    "dataDisks": [
+                        {
+                            "name": "W-secondyear-ec-vm-datadisk-01",
+                            "diskSizeGB": 80,
+                            "lun": 1,
+                            "createOption": "Empty"
+                        }
+                    ]
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', 'W-secondyear-ec-vm-01-nic-01')]"
+                        }
+                    ]
+                },
+                "diagnosticsProfile": {
+                    "bootDiagnostics": {
+                        "enabled": true,
+                        "storageUri": "[reference(resourceId('Microsoft.Storage/storageAccounts/', 'mnitsa')).primaryEndpoints.blob]"
+                    }
+                }
+            }
+        },
+        {
+            "name": "L-secondyear-ec-vm-01",
+            "type": "Microsoft.Compute/virtualMachines",
+            "apiVersion": "2019-07-01",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', 'mnitsa')]",
+                "[resourceId('Microsoft.Network/networkInterfaces', 'L-secondyear-ec-vm-01-nic-01')]"
+            ],
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "Standard_B2s"
+                },
+                "osProfile": {
+                    "computerName": "L-secondyear-ec-vm-01",
+                    "adminUsername": "TestAdmin",
+                    "adminPassword": "p@$$word1"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "Canonical",
+                        "offer": "UbuntuServer",
+                        "sku": "18.04-LTS",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "name": "LinuxVM1OSDisk",
+                        "caching": "ReadWrite",
+                        "createOption": "FromImage"
+                    },
+                    "dataDisks": [
+                        {
+                            "name": "L-secondyear-ec-vm-datadisk-01",
+                            "diskSizeGB": 80,
+                            "lun": 1,
+                            "createOption": "Empty"
+                        }
+                    ]
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', 'L-secondyear-ec-vm-01-nic-01')]"
+                        }
+                    ]
+                },
+                "diagnosticsProfile": {
+                    "bootDiagnostics": {
+                        "enabled": true,
+                        "storageUri": "[reference(resourceId('Microsoft.Storage/storageAccounts/', 'mnitsa')).primaryEndpoints.blob]"
+                    }
+                }
+            }
+        },
+        {
+            "name": "W-secondyear-cs-vm-01",
+            "type": "Microsoft.Compute/virtualMachines",
+            "apiVersion": "2019-07-01",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', 'mnitsa')]",
+                "[resourceId('Microsoft.Network/networkInterfaces', 'W-secondyear-cs-vm-01-nic-01')]"
+            ],
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "Standard_B2s"
+                },
+                "osProfile": {
+                    "computerName": "W-secondyear-cs-vm-01",
+                    "adminUsername": "TestAdmin",
+                    "adminPassword": "p@$$word1"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "MicrosoftWindowsServer",
+                        "offer": "WindowsServer",
+                        "sku": "2019-Datacenter",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "name": "windowsVM2OSDisk",
+                        "caching": "ReadWrite",
+                        "createOption": "FromImage"
+                    },
+                    "dataDisks": [
+                        {
+                            "name": "W-secondyear-cs-vm-datadisk-01",
+                            "diskSizeGB": 80,
+                            "lun": 1,
+                            "createOption": "Empty"
+                        }
+                    ]
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', 'W-secondyear-cs-vm-01-nic-01')]"
+                        }
+                    ]
+                },
+                "diagnosticsProfile": {
+                    "bootDiagnostics": {
+                        "enabled": true,
+                        "storageUri": "[reference(resourceId('Microsoft.Storage/storageAccounts/', 'mnitsa')).primaryEndpoints.blob]"
+                    }
+                }
+            }
+        },
+        {
+            "name": "L-secondyear-cs-vm-01",
+            "type": "Microsoft.Compute/virtualMachines",
+            "apiVersion": "2019-07-01",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', 'mnitsa')]",
+                "[resourceId('Microsoft.Network/networkInterfaces', 'L-secondyear-cs-vm-01-nic-01')]"
+            ],
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "Standard_B2s"
+                },
+                "osProfile": {
+                    "computerName": "L-secondyear-cs-vm-01",
+                    "adminUsername": "TestAdmin",
+                    "adminPassword": "p@$$word1"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "Canonical",
+                        "offer": "UbuntuServer",
+                        "sku": "18.04-LTS",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "name": "LinuxVM2OSDisk",
+                        "caching": "ReadWrite",
+                        "createOption": "FromImage"
+                    },
+                    "dataDisks": [
+                        {
+                            "name": "L-secondyear-cs-vm-datadisk-01",
+                            "diskSizeGB": 80,
+                            "lun": 1,
+                            "createOption": "Empty"
+                        }
+                    ]
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', 'L-secondyear-cs-vm-01-nic-01')]"
+                        }
+                    ]
+                },
+                "diagnosticsProfile": {
+                    "bootDiagnostics": {
+                        "enabled": true,
+                        "storageUri": "[reference(resourceId('Microsoft.Storage/storageAccounts/', 'mnitsa')).primaryEndpoints.blob]"
+                    }
+                }
+            }
+        },
+        {
+            "name": "W-secondyear-it-vm-01",
+            "type": "Microsoft.Compute/virtualMachines",
+            "apiVersion": "2019-07-01",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', 'mnitsa')]",
+                "[resourceId('Microsoft.Network/networkInterfaces', 'W-secondyear-it-vm-01-nic-01')]"
+            ],
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "Standard_B2s"
+                },
+                "osProfile": {
+                    "computerName": "W-secondyear-it-vm-01",
+                    "adminUsername": "TestAdmin",
+                    "adminPassword": "p@$$word1"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "MicrosoftWindowsServer",
+                        "offer": "WindowsServer",
+                        "sku": "2019-Datacenter",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "name": "windowsVM3OSDisk",
+                        "caching": "ReadWrite",
+                        "createOption": "FromImage"
+                    },
+                    "dataDisks": [
+                        {
+                            "name": "W-secondyear-it-vm-datadisk-01",
+                            "diskSizeGB": 80,
+                            "lun": 1,
+                            "createOption": "Empty"
+                        }
+                    ]
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', 'W-secondyear-it-vm-01-nic-01')]"
+                        }
+                    ]
+                },
+                "diagnosticsProfile": {
+                    "bootDiagnostics": {
+                        "enabled": true,
+                        "storageUri": "[reference(resourceId('Microsoft.Storage/storageAccounts/', 'mnitsa')).primaryEndpoints.blob]"
+                    }
+                }
+            }
+        },
+        {
+            "name": "L-secondyear-it-vm-01",
+            "type": "Microsoft.Compute/virtualMachines",
+            "apiVersion": "2019-07-01",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', 'mnitsa')]",
+                "[resourceId('Microsoft.Network/networkInterfaces', 'L-secondyear-it-vm-01-nic-01')]"
+            ],
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "Standard_B2s"
+                },
+                "osProfile": {
+                    "computerName": "L-secondyear-it-vm-01",
+                    "adminUsername": "TestAdmin",
+                    "adminPassword": "p@$$word1"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "Canonical",
+                        "offer": "UbuntuServer",
+                        "sku": "18.04-LTS",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "name": "LinuxVM3OSDisk",
+                        "caching": "ReadWrite",
+                        "createOption": "FromImage"
+                    },
+                    "dataDisks": [
+                        {
+                            "name": "L-secondyear-it-vm-datadisk-01",
+                            "diskSizeGB": 80,
+                            "lun": 1,
+                            "createOption": "Empty"
+                        }
+                    ]
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', 'L-secondyear-it-vm-01-nic-01')]"
+                        }
+                    ]
+                },
+                "diagnosticsProfile": {
+                    "bootDiagnostics": {
+                        "enabled": true,
+                        "storageUri": "[reference(resourceId('Microsoft.Storage/storageAccounts/', 'mnitsa')).primaryEndpoints.blob]"
+                    }
+                }
+            }
+        },
+        {
+            "name": "W-secondyear-mech-vm-01",
+            "type": "Microsoft.Compute/virtualMachines",
+            "apiVersion": "2019-07-01",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', 'mnitsa')]",
+                "[resourceId('Microsoft.Network/networkInterfaces', 'W-secondyear-mech-vm-01-nic-01')]"
+            ],
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "Standard_B2s"
+                },
+                "osProfile": {
+                    "computerName": "W-secondyear-mech-vm-01",
+                    "adminUsername": "TestAdmin",
+                    "adminPassword": "p@$$word1"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "MicrosoftWindowsServer",
+                        "offer": "WindowsServer",
+                        "sku": "2019-Datacenter",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "name": "windowsVM4OSDisk",
+                        "caching": "ReadWrite",
+                        "createOption": "FromImage"
+                    },
+                    "dataDisks": [
+                        {
+                            "name": "W-secondyear-mech-vm-datadisk-01",
+                            "diskSizeGB": 80,
+                            "lun": 1,
+                            "createOption": "Empty"
+                        }
+                    ]
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', 'W-secondyear-mech-vm-01-nic-01')]"
+                        }
+                    ]
+                },
+                "diagnosticsProfile": {
+                    "bootDiagnostics": {
+                        "enabled": true,
+                        "storageUri": "[reference(resourceId('Microsoft.Storage/storageAccounts/', 'mnitsa')).primaryEndpoints.blob]"
+                    }
+                }
+            }
+        },
+        {
+            "name": "L-secondyear-mech-vm-01",
+            "type": "Microsoft.Compute/virtualMachines",
+            "apiVersion": "2019-07-01",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', 'mnitsa')]",
+                "[resourceId('Microsoft.Network/networkInterfaces', 'L-secondyear-mech-vm-01-nic-01')]"
+            ],
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "Standard_B2s"
+                },
+                "osProfile": {
+                    "computerName": "L-secondyear-mech-vm-01",
+                    "adminUsername": "TestAdmin",
+                    "adminPassword": "p@$$word1"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "Canonical",
+                        "offer": "UbuntuServer",
+                        "sku": "18.04-LTS",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "name": "LinuxVM4OSDisk",
+                        "caching": "ReadWrite",
+                        "createOption": "FromImage"
+                    },
+                    "dataDisks": [
+                        {
+                            "name": "L-secondyear-mech-vm-datadisk-01",
+                            "diskSizeGB": 80,
+                            "lun": 1,
+                            "createOption": "Empty"
+                        }
+                    ]
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', 'L-secondyear-it-mech-01-nic-01')]"
+                        }
+                    ]
+                },
+                "diagnosticsProfile": {
+                    "bootDiagnostics": {
+                        "enabled": true,
+                        "storageUri": "[reference(resourceId('Microsoft.Storage/storageAccounts/', 'mnitsa')).primaryEndpoints.blob]"
+                    }
+                }
+            }
+        }
+
+    ],
+    "outputs": {}
+}
